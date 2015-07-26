@@ -1,5 +1,6 @@
 package dawesometoolkit;
 import processing.core.*;
+import processing.event.*;
 import processing.core.PGraphics;
 import java.util.*;
 import static java.lang.Math.*;
@@ -7,14 +8,52 @@ import java.awt.Color;
 
 public class DawesomeToolkit implements PConstants {
   PApplet parent;
+  int lastCapture;
+  char saveKey = 's';
+  String saveFormat = ".png";
+  
 
   public DawesomeToolkit(PApplet parent) {
     this.parent = parent;
-    parent.registerMethod("dispose", this);
+    lastCapture = 0;
   }
 
-  public void dispose() {
-    
+/**
+Enables pressing a key to save screenshot with a unique date based filename
+
+@param  saveKey a char defining the key to use
+@param saveFormat a string defining the file extension type and format eg .png
+*/
+  public void enableLazySave(char saveKey, String saveFormat){
+    this.saveKey = saveKey;
+    this.saveFormat = saveFormat;
+    parent.registerMethod("keyEvent", this);
+  }
+
+/**
+Enables pressing the 's' key to save screenshot in png format 
+*/
+   public void enableLazySave(){
+
+    enableLazySave('s',".png");
+   
+  }
+
+  public void disableLazySave(){
+    parent.unregisterMethod("keyEvent", this);
+  }
+
+  public void keyEvent(KeyEvent e) {
+
+    char key = e.getKey();
+    if (key == saveKey){
+      int currentCapture = parent.millis();
+      if (currentCapture-lastCapture > 500){
+        String filename = uniqueFileName();
+        parent.saveFrame(filename+saveFormat);
+      }
+      lastCapture = parent.millis();
+    }
   }
 
   public final float map(float value, 
@@ -103,6 +142,24 @@ Multiplies (scales) an ArrayList of PVectors
 
     for (PVector p : vectors) {
       p.mult(scaler);
+    }
+
+    return vectors;
+
+  }
+
+  /**
+Rotates an ArrayList of PVectors
+
+@param vectors a PVector ArrayList of PVectors
+@param angle the angle value
+@return an ArrayList of PVectors
+*/
+
+  public ArrayList<PVector> rotatePVectors(ArrayList<PVector> vectors,float angle){
+
+    for (PVector p : vectors) {
+      p.rotate(angle);
     }
 
     return vectors;

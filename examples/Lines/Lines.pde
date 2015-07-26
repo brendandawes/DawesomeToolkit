@@ -9,6 +9,9 @@ DawesomeToolkit ds;
 ArrayList<PVector> grid;
 ArrayList<Integer> colors;
 
+
+
+
 void setup(){
   size(600,600,OPENGL);
   smooth();
@@ -21,6 +24,7 @@ void setup(){
 void draw(){
   
   background(50);
+  smooth();
   lights();
   noStroke();
   translate(width/2,height/2);

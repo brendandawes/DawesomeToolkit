@@ -14,19 +14,17 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-public class Lines extends PApplet {
+public class Log extends PApplet {
 
 /*
-Uses gridLayout and then mapPVectorsAroundSphere to map that grid around a sphere
-then use lineAroundSphere to draw some connecting lines
+Example of using the handy debug panel. Press ! to toggle showing and hiding the panel
 */
 
 
 
 DawesomeToolkit ds;
+Debug debug;
 ArrayList<PVector> grid;
-ArrayList<Integer> colors;
-
 
 
 
@@ -34,66 +32,53 @@ public void setup(){
   size(600,600,OPENGL);
   smooth();
   ds = new DawesomeToolkit(this);
-  ds.registerKeyEvent();
-  grid = ds.gridLayout(75,5,10,10);
+  debug = new Debug(this,120,100);
+  grid = ds.gridLayout(200,10,10,20);
   grid = ds.mapPVectorsAroundSphere(grid,150,10);
-  rectMode(CENTER);
+  noStroke();
+
 }
+
+
 
 public void draw(){
   
   background(50);
-  smooth();
+  debug.update("fps",frameRate);
+  debug.update("frameCount",frameCount);
+  debug.draw();
   lights();
-  noStroke();
+
   translate(width/2,height/2);
+
   float xRot = radians(270 -  millis()*.02f);
   float yRot = radians(270 -  millis()*.03f);
   rotateX( xRot ); 
   rotateY( yRot );
+  debug.update("xRot",xRot);
+  debug.update("yRot",yRot);
  int counter = 0;
   for (PVector p : grid) {
      pushMatrix();
        translate(p.x,p.y,p.z);
        PVector polar = ds.cartesianToPolar(p);
-      rotateY(polar.y);
+       rotateY(polar.y);
        rotateZ(polar.z);
        pushMatrix();
-        noStroke();
-        fill(255,0,255);
-        rotateY(radians(90));
-        //text(counter,0,0);
+         fill(255,0,255);
+         rotateY(radians(90));
+         //text(counter,0,0);
        popMatrix();
        fill(255);
-       box(3,3,3);
+       box(5,5,5);
      popMatrix();
      counter++;
   }
-pushMatrix();
-
-for (int j=1; j < grid.size(); j++){
-  // choose some vectors 
-  PVector p1 = grid.get(j);
-  PVector p2 = grid.get((j+2)%(grid.size()-1));
-  // generate vectors to draw lines
-  ArrayList<PVector> lines = ds.lineAroundSphere(p1,p2,150);
-  noFill();
-  int c = color(255,255,0,150);
-  strokeWeight(1.5f);
-  stroke(c);
-  beginShape();
-    for (PVector p : lines) {
-      vertex(p.x, p.y, p.z);
-    }
-  endShape();
- }
- popMatrix();
+ 
   
 }
-
-
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "Lines" };
+    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "Log" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

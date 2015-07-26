@@ -14,64 +14,71 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-public class Sphere extends PApplet {
+public class LatLon extends PApplet {
 
 /*
-Uses gridLayout and then mapPVectorsAroundSphere to map that grid around a sphere
+Uses getCartesian to map lat lon of cities, read from a csv file, on a globe
 */
 
 
 
 DawesomeToolkit ds;
 ArrayList<PVector> grid;
+Table table;
 
 
 
 public void setup(){
-  size(600,600,OPENGL);
+  size(800,800,OPENGL);
+  table = loadTable("capitals.csv", "header");
   smooth();
   ds = new DawesomeToolkit(this);
-  grid = ds.gridLayout(200,10,10,20);
-  grid = ds.mapPVectorsAroundSphere(grid,150,10);
   noStroke();
+  textSize(9);
 
 }
-
-
 
 public void draw(){
   
   background(50);
   lights();
-
   translate(width/2,height/2);
-
   float xRot = radians(270 -  millis()*.02f);
   float yRot = radians(270 -  millis()*.03f);
-  rotateX( xRot ); 
+  //rotateX( xRot ); 
   rotateY( yRot );
- int counter = 0;
-  for (PVector p : grid) {
-     pushMatrix();
+  int counter = 0;
+   for (TableRow row : table.rows()) {
+    int lat = row.getInt("CapitalLatitude");
+    int lon = row.getInt("CapitalLongitude");
+    String name = row.getString("CapitalName");
+    PVector p = ds.getCartesian(300,lat,lon);
+    pushMatrix();
        translate(p.x,p.y,p.z);
        PVector polar = ds.cartesianToPolar(p);
        rotateY(polar.y);
        rotateZ(polar.z);
        pushMatrix();
-         fill(255,0,255);
-         rotateY(radians(90));
-         //text(counter,0,0);
+          fill(255,0,255);
+          rotateY(radians(90));
+          if (counter%3==0){
+            text(name,0,0);
+          }
        popMatrix();
        fill(255);
-       box(5,5,5);
+       box(10,3,3);
      popMatrix();
      counter++;
   }
  
+     
+   
+  
+ 
   
 }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "Sphere" };
+    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "LatLon" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

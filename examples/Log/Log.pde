@@ -1,10 +1,11 @@
 /*
-Uses gridLayout and then mapPVectorsAroundSphere to map that grid around a sphere
+Example of using the handy debug panel. Press ! to toggle showing and hiding the panel
 */
 
 import dawesometoolkit.*;
 
 DawesomeToolkit ds;
+Debug debug;
 ArrayList<PVector> grid;
 
 
@@ -13,10 +14,10 @@ void setup(){
   size(600,600,OPENGL);
   smooth();
   ds = new DawesomeToolkit(this);
+  debug = new Debug(this,120,100);
   grid = ds.gridLayout(200,10,10,20);
   grid = ds.mapPVectorsAroundSphere(grid,150,10);
   noStroke();
-
 }
 
 
@@ -24,6 +25,9 @@ void setup(){
 void draw(){
   
   background(50);
+  debug.update("fps",frameRate);
+  debug.update("frameCount",frameCount);
+  debug.draw();
   lights();
 
   translate(width/2,height/2);
@@ -32,6 +36,8 @@ void draw(){
   float yRot = radians(270 -  millis()*.03);
   rotateX( xRot ); 
   rotateY( yRot );
+  debug.update("xRot",xRot);
+  debug.update("yRot",yRot);
  int counter = 0;
   for (PVector p : grid) {
      pushMatrix();

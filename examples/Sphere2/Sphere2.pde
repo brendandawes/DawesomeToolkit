@@ -1,5 +1,6 @@
 /*
 Uses gridLayout and then mapPVectorsAroundSphere to map that grid around a sphere
+Adds some lights and a sine wave to alter the box size...
 */
 
 import dawesometoolkit.*;
@@ -19,13 +20,37 @@ void setup(){
 
 }
 
+void drawLights() {
 
+  float spotX = width/2;
+  float spotY = height/2;
+  float spotZ = 0;
+  spotLight(247, 92, 47, spotX, spotY, spotZ, -1, 0, -1, PI/2, 2);
+  
+
+  spotX = width/2;
+  spotY = 0;
+  spotZ = 200;
+  spotLight(93, 172, 129, spotX, spotY, spotZ, -1, 0, -1, PI/2, 2);
+
+  spotX = width;
+  spotY = height;
+  spotZ = 200;
+  spotLight(165,222,228, spotX, spotY, spotZ, -1, 0, -1, PI/2, 2);
+
+  spotX = width/2;
+  spotY = height;
+  spotZ = 200;
+  spotLight(208,16,76, spotX, spotY, spotZ, -1, 0, -1, PI/2, 2);
+
+
+}
 
 void draw(){
   
   background(50);
-  lights();
-
+ 
+  drawLights();
   translate(width/2,height/2);
 
   float xRot = radians(270 -  millis()*.02);
@@ -45,7 +70,8 @@ void draw(){
          //text(counter,0,0);
        popMatrix();
        fill(255);
-       box(5,5,5);
+       float boxSize = sin(counter)*75;
+       box(10,boxSize,boxSize);
      popMatrix();
      counter++;
   }
