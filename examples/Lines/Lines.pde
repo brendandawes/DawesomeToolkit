@@ -1,6 +1,5 @@
 /*
-Uses gridLayout and then mapPVectorsAroundSphere to map that grid around a sphere
-then use lineAroundSphere to draw some connecting lines
+Uses fibonacciSphereLayout then uses lineAroundSphere to draw some connecting lines
 */
 
 import dawesometoolkit.*;
@@ -16,8 +15,7 @@ void setup(){
   size(600,600,OPENGL);
   smooth();
   ds = new DawesomeToolkit(this);
-  grid = ds.gridLayout(75,5,10,10);
-  grid = ds.mapPVectorsAroundSphere(grid,150,10);
+  grid = ds.fibonacciSphereLayout(100,150);
   rectMode(CENTER);
 }
 
@@ -55,7 +53,7 @@ pushMatrix();
 for (int j=1; j < grid.size(); j++){
   // choose some vectors 
   PVector p1 = grid.get(j);
-  PVector p2 = grid.get((j+2)%(grid.size()-1));
+  PVector p2 = grid.get((j+3)%(grid.size()-1));
   // generate vectors to draw lines
   ArrayList<PVector> lines = ds.lineAroundSphere(p1,p2,150);
   noFill();

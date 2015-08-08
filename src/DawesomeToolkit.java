@@ -272,11 +272,40 @@ Creates a spiral pattern of PVectors
   }
 
 /**
+Creates a Fibonacci distribution of PVectors around a sphere
+Original code from http://www.openprocessing.org/sketch/103897
+
+@param numItems the number of items
+@param radius a float defining the radius of the circle
+@return an ArrayList of PVectors
+*/
+
+  public ArrayList<PVector> fibonacciSphereLayout(int numItems, float radius){
+
+    float phi = (float)(sqrt(5)+1)/2 - 1; // golden ratio
+    float ga = phi*2*PI;           // golden angle
+
+    ArrayList<PVector> locations = new ArrayList<PVector>();
+    for (int i = 0; i < numItems; ++i) {
+        float lon = ga*i;
+        lon /= 2*PI; 
+        lon -= floor(lon); 
+        lon *= 2*PI;
+        if (lon > PI)  lon -= 2*PI;
+        float lat = (float)asin(-1 + 2*i/(float)numItems);
+        PVector p = getCartesian(radius,(float)toDegrees(lat),(float)toDegrees(lon));
+        locations.add(p);
+      }
+
+      return locations;
+  }
+
+/**
 Converts radius, lat, lon to a PVector of world coordinates
 
 @param radius a float defining the radius
-@param lat a float in degrees defing the latitude
-@param lon a float in degrees defing the longitude
+@param lat a float in degrees defining the latitude
+@param lon a float in degrees defining the longitude
 @return a PVector 
 */
 
