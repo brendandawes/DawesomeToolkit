@@ -85,8 +85,61 @@ Returns a unique filename made up from date and time and random number. It's not
     return d+"_"+r;
 
   }
+/**
+Draws a center guide onto the canvas
 
+@param  color an int defining the color of the guide
+*/
+  public void drawCenterGuide(int color){
 
+    float w = parent.width;
+    float h = parent.height;
+    float midW = (float)(w/2.0);
+    float midH = (float)(h/2.0);
+    parent.stroke(color);
+    parent.strokeWeight((float)0.5);
+    parent.line(midW,0,midW,h);
+    parent.line(0,midH,w,midH);
+}
+
+/**
+Draws a thirds guide onto the canvas
+
+@param  color an int defining the color of the guide
+*/
+  public void drawThirdsGuide(int color){
+
+    float w = parent.width;
+    float h = parent.height;
+    float wThird = (float)(h/3.0);
+    float hThird = (float)(w/3.0);
+    parent.stroke(color);
+    parent.strokeWeight((float)0.5);
+    parent.line(0,hThird,w,hThird);
+    parent.line(0,hThird*2,w,hThird*2);
+    parent.line(wThird,0,wThird,h);
+    parent.line(wThird*2,0,wThird*2,h);
+}
+
+/**
+Draws a baseline grid
+
+@param  color an int defining the color of the guide
+@param  spacing a float defining the vertical spacing
+*/
+
+public void drawBaselineGuide(int color,float spacing){
+
+    float w = parent.width;
+    float h = parent.height;
+    int amount = (int)(h/spacing);
+    parent.stroke(color);
+    parent.strokeWeight((float)0.5);
+    for (int i=1; i < amount; i++){
+      parent.line(0,spacing*i,w,spacing*i);
+    }
+   
+}
 /**
 Gets the min x y z values from a list of PVectors
 

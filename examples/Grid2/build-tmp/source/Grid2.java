@@ -30,7 +30,7 @@ float gridHeight;
 int counter;
 
 public void setup(){
-  size(600,600,OPENGL);
+  size(600,600,P3D);
   smooth();
   ds = new DawesomeToolkit(this);
   grid = ds.gridLayout(100,20,20,10);
@@ -46,8 +46,8 @@ public void draw(){
   drawLights();
   fill(255);
   noStroke();
-  translate(width/2,height/2,-50);
 
+  translate(width/2-gridWidth/2,height/2-gridHeight/2,0);
   float xRot = radians(270 -  millis()*.02f);
   float yRot = radians(270 -  millis()*.03f);
   rotateX( xRot ); 

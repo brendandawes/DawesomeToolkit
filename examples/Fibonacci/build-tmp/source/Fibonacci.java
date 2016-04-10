@@ -30,7 +30,7 @@ float boxSize = 10;
 
 
 public void setup(){
-  size(600,600,OPENGL);
+  size(600,600,P3D);
   smooth();
   ds = new DawesomeToolkit(this);
   vectors = ds.fibonacciSphereLayout(100,150);

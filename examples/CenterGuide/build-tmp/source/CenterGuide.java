@@ -14,40 +14,34 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-public class Vogel extends PApplet {
+public class CenterGuide extends PApplet {
 
 /*
-Uses vogelLayout to create a vogel spiral pattern
+Draws a center guide
 */
 
 
 
 DawesomeToolkit ds;
-ArrayList<PVector> grid;
-int dotSize = 10;
 
 
 public void setup(){
   size(600,600);
   smooth();
   ds = new DawesomeToolkit(this);
-  grid = ds.vogelLayout(200,10);
-
 }
 
 public void draw(){
   
   background(50);
-  fill(255);
   noStroke();
-  translate(width/2,height/2);
-  for (PVector p : grid) {
-    ellipse(p.x,p.y,dotSize,dotSize);
-  }
+  fill(255);
+  ellipse(width/2.0f,height/2.0f,200,200);
+  ds.drawCenterGuide(color(255,0,255));
   
 }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "Vogel" };
+    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "CenterGuide" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

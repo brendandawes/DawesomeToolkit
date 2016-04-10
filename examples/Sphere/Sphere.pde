@@ -10,7 +10,7 @@ ArrayList<PVector> grid;
 
 
 void setup(){
-  size(600,600,OPENGL);
+  size(600,600,P3D);
   smooth();
   ds = new DawesomeToolkit(this);
   grid = ds.gridLayout(200,10,10,20);

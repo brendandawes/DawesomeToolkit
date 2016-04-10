@@ -50,7 +50,7 @@ public void draw(){
   
 }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "Grid" };
+    String[] appletArgs = new String[] { "Grid" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

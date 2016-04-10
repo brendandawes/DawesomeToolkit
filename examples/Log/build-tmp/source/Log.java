@@ -24,7 +24,7 @@ Example of using the handy debug panel. Press ! to toggle showing and hiding the
 
 DawesomeToolkit ds;
 Debug debug;
-ArrayList<PVector> grid;
+ArrayList<PVector> sphere;
 
 
 
@@ -33,10 +33,8 @@ public void setup(){
   smooth();
   ds = new DawesomeToolkit(this);
   debug = new Debug(this,120,100);
-  grid = ds.gridLayout(200,10,10,20);
-  grid = ds.mapPVectorsAroundSphere(grid,150,10);
+  sphere = ds.fibonacciSphereLayout(100,150);
   noStroke();
-
 }
 
 
@@ -57,8 +55,8 @@ public void draw(){
   rotateY( yRot );
   debug.update("xRot",xRot);
   debug.update("yRot",yRot);
- int counter = 0;
-  for (PVector p : grid) {
+  int counter = 0;
+  for (PVector p : sphere) {
      pushMatrix();
        translate(p.x,p.y,p.z);
        PVector polar = ds.cartesianToPolar(p);
@@ -67,7 +65,7 @@ public void draw(){
        pushMatrix();
          fill(255,0,255);
          rotateY(radians(90));
-         //text(counter,0,0);
+         text(counter,0,0);
        popMatrix();
        fill(255);
        box(5,5,5);
