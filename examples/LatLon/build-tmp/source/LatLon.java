@@ -22,17 +22,19 @@ Uses getCartesian to map lat lon of cities, read from a csv file, on a globe
 
 
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 ArrayList<PVector> grid;
+ArrayList<Integer> colors;
 Table table;
 
 
 
 public void setup(){
-  size(800,800,OPENGL);
+  
   table = loadTable("capitals.csv", "header");
-  smooth();
-  ds = new DawesomeToolkit(this);
+  
+  dawesome = new DawesomeToolkit(this);
+  colors = dawesome.iWantHue();
   noStroke();
   textSize(9);
 
@@ -40,7 +42,7 @@ public void setup(){
 
 public void draw(){
   
-  background(50);
+  background(20);
   lights();
   translate(width/2,height/2);
   float xRot = radians(270 -  millis()*.02f);
@@ -52,20 +54,20 @@ public void draw(){
     int lat = row.getInt("CapitalLatitude");
     int lon = row.getInt("CapitalLongitude");
     String name = row.getString("CapitalName");
-    PVector p = ds.getCartesian(300,lat,lon);
+    PVector p = dawesome.getCartesian(300,lat,lon);
     pushMatrix();
        translate(p.x,p.y,p.z);
-       PVector polar = ds.cartesianToPolar(p);
+       PVector polar = dawesome.cartesianToPolar(p);
        rotateY(polar.y);
        rotateZ(polar.z);
        pushMatrix();
-          fill(255,0,255);
+          fill(255);
           rotateY(radians(90));
           if (counter%3==0){
             text(name,0,0);
           }
        popMatrix();
-       fill(255);
+       fill(colors.get(counter%colors.size()));
        box(10,3,3);
      popMatrix();
      counter++;
@@ -77,8 +79,9 @@ public void draw(){
  
   
 }
+  public void settings() {  size(800,800,OPENGL);  smooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "LatLon" };
+    String[] appletArgs = new String[] { "LatLon" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

@@ -22,23 +22,23 @@ Uses vogelLayout to create a vogel spiral pattern
 
 
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 ArrayList<PVector> grid;
 int dotSize = 10;
 
 
 public void setup(){
-  size(600,600);
-  smooth();
-  ds = new DawesomeToolkit(this);
-  grid = ds.vogelLayout(200,10);
+  
+  
+  dawesome = new DawesomeToolkit(this);
+  grid = dawesome.vogelLayout(200,10);
 
 }
 
 public void draw(){
   
-  background(50);
-  fill(255);
+  background(20);
+  fill(dawesome.BITTERSWEET);
   noStroke();
   translate(width/2,height/2);
   for (PVector p : grid) {
@@ -46,8 +46,9 @@ public void draw(){
   }
   
 }
+  public void settings() {  size(600,600);  smooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "Vogel" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "Vogel" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

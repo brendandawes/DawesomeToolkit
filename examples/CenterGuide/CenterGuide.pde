@@ -4,21 +4,21 @@ Draws a center guide
 
 import dawesometoolkit.*;
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 
 
 void setup(){
   size(600,600);
   smooth();
-  ds = new DawesomeToolkit(this);
+  dawesome = new DawesomeToolkit(this);
 }
 
 void draw(){
   
-  background(50);
+  background(20);
   noStroke();
-  fill(255);
+  fill(dawesome.RICECAKE);
   ellipse(width/2.0,height/2.0,200,200);
-  ds.drawCenterGuide(color(255,0,255));
+  dawesome.drawCenterGuide(dawesome.BITTERSWEET);
   
 }

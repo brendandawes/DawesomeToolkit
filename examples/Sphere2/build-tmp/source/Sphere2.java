@@ -23,17 +23,17 @@ Adds some lights and a sine wave to alter the box size...
 
 
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 ArrayList<PVector> grid;
 
 
 
 public void setup(){
-  size(600,600,P3D);
-  smooth();
-  ds = new DawesomeToolkit(this);
-  grid = ds.gridLayout(200,10,10,20);
-  grid = ds.mapPVectorsAroundSphere(grid,150,10);
+  
+  
+  dawesome = new DawesomeToolkit(this);
+  grid = dawesome.gridLayout(200,10,10,20);
+  grid = dawesome.mapPVectorsAroundSphere(grid,150,10);
   noStroke();
 
 }
@@ -66,7 +66,7 @@ public void drawLights() {
 
 public void draw(){
   
-  background(50);
+  background(20);
  
   drawLights();
   translate(width/2,height/2);
@@ -79,7 +79,7 @@ public void draw(){
   for (PVector p : grid) {
      pushMatrix();
        translate(p.x,p.y,p.z);
-       PVector polar = ds.cartesianToPolar(p);
+       PVector polar = dawesome.cartesianToPolar(p);
        rotateY(polar.y);
        rotateZ(polar.z);
        pushMatrix();
@@ -87,7 +87,7 @@ public void draw(){
          rotateY(radians(90));
          //text(counter,0,0);
        popMatrix();
-       fill(255);
+       fill(dawesome.BITTERSWEET);
        float boxSize = sin(counter)*75;
        box(10,boxSize,boxSize);
      popMatrix();
@@ -96,8 +96,9 @@ public void draw(){
  
   
 }
+  public void settings() {  size(600,600,P3D);  smooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "Sphere2" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "Sphere2" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

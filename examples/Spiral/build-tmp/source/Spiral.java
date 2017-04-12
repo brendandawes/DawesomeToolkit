@@ -22,23 +22,23 @@ Uses spiralLayout to create a spiral pattern
 
 
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 ArrayList<PVector> layout;
 int dotSize = 10;
 
 
 public void setup(){
-  size(600,600);
-  smooth();
-  ds = new DawesomeToolkit(this);
-  layout = ds.spiralLayout(300,200,0.3f,0.01f,1.15f);
+  
+  
+  dawesome = new DawesomeToolkit(this);
+  layout = dawesome.spiralLayout(300,200,0.3f,0.01f,1.15f);
 
 }
 
 public void draw(){
   
-  background(50);
-  fill(255);
+  background(20);
+  fill(dawesome.BITTERSWEET);
   noStroke();
   translate(width/2,height/2);
   for (PVector p : layout) {
@@ -46,8 +46,9 @@ public void draw(){
   }
   
 }
+  public void settings() {  size(600,600);  smooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "Spiral" };
+    String[] appletArgs = new String[] { "Spiral" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

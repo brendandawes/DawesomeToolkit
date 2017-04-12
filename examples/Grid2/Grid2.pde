@@ -4,7 +4,7 @@ Uses gridLayout to create a grid of 10 x 10 dots, add sine waves, lights, action
 
 import dawesometoolkit.*;
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 ArrayList<PVector> grid;
 float dotSize = 10;
 float gridWidth;
@@ -14,9 +14,9 @@ int counter;
 void setup(){
   size(600,600,P3D);
   smooth();
-  ds = new DawesomeToolkit(this);
-  grid = ds.gridLayout(100,20,20,10);
-  PVector p = ds.getMaxValueFromListOfPVectors(grid);
+  dawesome = new DawesomeToolkit(this);
+  grid = dawesome.gridLayout(100,20,20,10);
+  PVector p = dawesome.getMaxValueFromListOfPVectors(grid);
   gridWidth = p.x-dotSize;
   gridHeight = p.y-dotSize;
   counter = 0;
@@ -24,9 +24,9 @@ void setup(){
 
 void draw(){
   
-  background(50);
+  background(20);
   drawLights();
-  fill(255);
+  fill(dawesome.BITTERSWEET);
   noStroke();
 
   translate(width/2-gridWidth/2,height/2-gridHeight/2,0);

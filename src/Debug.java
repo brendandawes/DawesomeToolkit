@@ -16,6 +16,8 @@ public class Debug implements PConstants {
   HashMap<String,String> logs;
   boolean showDebug = false;
   PFont debugFont;
+  int backgroundColor;
+  int foregroundColor;
 
 /**
 Constructor
@@ -29,6 +31,8 @@ Constructor
     	this.parent = parent;
       this.debugWidth = debugWidth;
       this.debugHeight = debugHeight;
+      this.backgroundColor = parent.color(0,0,0);
+      this.foregroundColor = parent.color(255);
     	this.logs = new HashMap<String,String>();
       this.debugFont = parent.createFont("Monospaced",10);
       parent.registerMethod("keyEvent", this);
@@ -49,15 +53,18 @@ Constructor
         float h = parent.width;
         float x = 10;
         float y = 20;
+        parent.pushStyle();
         parent.textFont(debugFont);
         parent.textSize(10);
-        parent.fill(0,100);
+        parent.fill(backgroundColor);
         parent.rect(0,0,debugWidth,debugHeight);
         for (Map.Entry entry : logs.entrySet()) {
-          parent.fill(255);
+          parent.noStroke();
+          parent.fill(foregroundColor);
           parent.text(entry.getKey()+": "+entry.getValue(),x,y);
           y += VERTICAL_SPACING;
         }
+        parent.popStyle();
       }
   	}
 
@@ -93,6 +100,18 @@ Constructor
       String v = ""+value;
       update(key,v);
       
+    }
+
+    public void setVisible(boolean v){
+      showDebug = v;
+    }
+
+    public void setBackgroundColor(int c){
+      backgroundColor = c;
+    }
+
+    public void setForegroundColor(int c){
+      foregroundColor = c;
     }
 
 

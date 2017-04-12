@@ -17,12 +17,12 @@ import java.io.IOException;
 public class Lines extends PApplet {
 
 /*
-Uses fibonacciSphereLayout then uses lineAroundSphere to draw some connecting lines
+Uses fibonacciSphereLayout then uses lineAroundawesomephere to draw some connecting lines
 */
 
 
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 ArrayList<PVector> grid;
 ArrayList<Integer> colors;
 
@@ -30,16 +30,16 @@ ArrayList<Integer> colors;
 
 
 public void setup(){
-  size(600,600,OPENGL);
-  smooth();
-  ds = new DawesomeToolkit(this);
-  grid = ds.fibonacciSphereLayout(100,150);
+  
+  
+  dawesome = new DawesomeToolkit(this);
+  grid = dawesome.fibonacciSphereLayout(100,150);
   rectMode(CENTER);
 }
 
 public void draw(){
   
-  background(50);
+  background(20);
   smooth();
   lights();
   noStroke();
@@ -52,7 +52,7 @@ public void draw(){
   for (PVector p : grid) {
      pushMatrix();
        translate(p.x,p.y,p.z);
-       PVector polar = ds.cartesianToPolar(p);
+       PVector polar = dawesome.cartesianToPolar(p);
       rotateY(polar.y);
        rotateZ(polar.z);
        pushMatrix();
@@ -73,9 +73,9 @@ for (int j=1; j < grid.size(); j++){
   PVector p1 = grid.get(j);
   PVector p2 = grid.get((j+3)%(grid.size()-1));
   // generate vectors to draw lines
-  ArrayList<PVector> lines = ds.lineAroundSphere(p1,p2,150);
+  ArrayList<PVector> lines = dawesome.lineAroundSphere(p1,p2,150);
   noFill();
-  int c = color(255,255,0,150);
+  int c = dawesome.BITTERSWEET;
   strokeWeight(1.5f);
   stroke(c);
   beginShape();
@@ -89,8 +89,9 @@ for (int j=1; j < grid.size(); j++){
 }
 
 
+  public void settings() {  size(600,600,OPENGL);  smooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "Lines" };
+    String[] appletArgs = new String[] { "Lines" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

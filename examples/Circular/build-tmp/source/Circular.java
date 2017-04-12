@@ -22,23 +22,23 @@ Uses circularLayout to create a circular layout - obvs!
 
 
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 ArrayList<PVector> layout;
 int dotSize = 10;
 
 
 public void setup(){
-  size(600,600);
-  smooth();
-  ds = new DawesomeToolkit(this);
-  layout = ds.circularLayout(25,100);
+  
+  
+  dawesome = new DawesomeToolkit(this);
+  layout = dawesome.circularLayout(100,200);
 
 }
 
 public void draw(){
   
-  background(50);
-  fill(255);
+  background(20);
+  fill(dawesome.BITTERSWEET);
   noStroke();
   translate(width/2,height/2);
   for (PVector p : layout) {
@@ -46,8 +46,9 @@ public void draw(){
   }
   
 }
+  public void settings() {  size(600,600);  smooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "Circular" };
+    String[] appletArgs = new String[] { "Circular" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

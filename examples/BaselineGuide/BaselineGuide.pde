@@ -4,21 +4,21 @@ Draws baseline guide
 
 import dawesometoolkit.*;
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 
 
 void setup(){
   size(600,600);
   smooth();
-  ds = new DawesomeToolkit(this);
+  dawesome = new DawesomeToolkit(this);
 }
 
 void draw(){
   
-  background(50);
+  background(20);
   noStroke();
   fill(255);
   ellipse(width/2.0,height/2.0,200,200);
-  ds.drawBaselineGuide(color(255,0,255),20);
+  dawesome.drawBaselineGuide(dawesome.BITTERSWEET,20);
   
 }

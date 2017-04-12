@@ -3,6 +3,9 @@ import processing.core.*;
 import processing.event.*;
 import processing.core.PGraphics;
 import java.util.*;
+import java.util.regex.*;
+import java.util.Collections;
+import java.util.Random;
 import static java.lang.Math.*;
 import java.awt.Color;
 
@@ -11,11 +14,24 @@ public class DawesomeToolkit implements PConstants {
   int lastCapture;
   char saveKey = 's';
   String saveFormat = ".png";
+  String saveAppend = "";
+
+  public final int BITTERSWEET;
+  public final int BIANCA;
+  public final int ONYX;
+  public final int RICECAKE;
+
+
   
 
   public DawesomeToolkit(PApplet parent) {
     this.parent = parent;
     lastCapture = 0;
+    
+    BITTERSWEET = parent.color(253, 115, 87);
+    BIANCA = parent.color(252, 250, 242);
+    ONYX = parent.color(18, 10, 13);
+    RICECAKE = parent.color(237, 237, 224);
   }
 
 /**
@@ -27,6 +43,13 @@ Enables pressing a key to save screenshot with a unique date based filename
   public void enableLazySave(char saveKey, String saveFormat){
     this.saveKey = saveKey;
     this.saveFormat = saveFormat;
+    parent.registerMethod("keyEvent", this);
+  }
+
+  public void enableLazySave(char saveKey, String saveFormat, String saveAppend){
+    this.saveKey = saveKey;
+    this.saveFormat = saveFormat;
+    this.saveAppend = saveAppend;
     parent.registerMethod("keyEvent", this);
   }
 
@@ -50,6 +73,9 @@ Enables pressing the 's' key to save screenshot in png format
       int currentCapture = parent.millis();
       if (currentCapture-lastCapture > 500){
         String filename = uniqueFileName();
+        if (saveAppend != ""){
+          filename += "_"+saveAppend;
+        }
         parent.saveFrame(filename+saveFormat);
       }
       lastCapture = parent.millis();
@@ -85,6 +111,108 @@ Returns a unique filename made up from date and time and random number. It's not
     return d+"_"+r;
 
   }
+
+/**
+Returns the ip address for this machine
+@return a string with the ip address
+*/
+
+  public String ipAddress(){
+    String ip = "";
+
+    try {
+      return java.net.InetAddress.getLocalHost().getHostAddress();
+    } catch (Exception e){
+      return "error geting ip address";
+    }
+
+  }
+
+
+/**
+ Returns a current timestamp
+ @param dateFormat a String defining the date format
+ @return a string with the generated timestamp
+ */
+
+
+  public String timestamp(String dateFormat){
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(dateFormat);
+    String d =  sdf.format(new java.util.Date());
+    return d;
+  }
+
+/**
+ Returns a current timestamp
+ @return a string with the generated timestamp
+ */
+
+  public String timestamp(){
+    String DATE_FORMAT="yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DATE_FORMAT);
+    String d =  sdf.format(new java.util.Date());
+    return d;
+  }
+
+/**
+ Detects if a word is present in a string
+ @param needle the string to find
+ @param haystack the string to search
+ @return a boolean value, true or false
+ */
+
+  boolean isWordInString(String needle,String haystack) {
+    haystack = haystack.toLowerCase();
+    needle = needle.toLowerCase();
+    Pattern p = Pattern.compile("\\b"+needle+"\\b");
+    Matcher m = p.matcher(haystack);
+    return m.find();
+  }
+
+/**
+Get the number of days between two dates
+@param d1 first Date object
+@param d2 second Date object
+@return   an int with the number of days between
+ */
+
+public int numberOfDaysBetweenDates(java.util.Date d1, java.util.Date d2) {
+    long diff;
+    diff = d2.getTime() - d1.getTime();
+    Integer i = (int) (long) (diff / 86400.0);
+    return i;
+}
+
+/**
+Get the distance in KM between two lat lon coordinates
+@param lat1 first lat
+@param lon1 first lon
+@param lat2 second lat
+@param lon2 second lon
+@return   a float with the distance in KM
+ */
+
+public float distanceBetweenLatLonInKilometers(float lat1, float lon1, float lat2, float lon2) {
+    
+    int R = 6371; 
+    float dLat = parent.radians(lat2-lat1); 
+    float dLon = parent.radians(lon2-lon1); 
+    double a = 
+    sin(dLat/2) * sin(dLat/2) +
+    cos(parent.radians(lat1)) * cos(parent.radians(lat2)) * 
+    sin(dLon/2) * sin(dLon/2)
+    ; 
+    double c = 2 * atan2(sqrt(a), sqrt(1-a)); 
+    double d = R * c;
+    return (float) d;
+}
+
+public float distanceBetweenLatLonInMiles(float lat1, float lon1, float lat2, float lon2) {
+    
+    float km = distanceBetweenLatLonInKilometers(lat1,lon1,lat2,lon2);
+    float d = (float) (km * 0.621371);
+    return d;
+}
 /**
 Draws a center guide onto the canvas
 
@@ -181,6 +309,29 @@ Gets the max x y z values from a list of PVectors
       }
  
       return pMax;
+    }
+
+/**
+Centers a list of PVectors in the x and y axis so that 0,0 is the center point
+
+@param vectors a PVector ArrayList of vectors
+@return an ArrayList of adjusted PVectors
+*/
+
+  public ArrayList<PVector> centerPVectors( ArrayList<PVector> vectors ) {
+
+      PVector pMax = getMaxValueFromListOfPVectors(vectors);
+      
+      float xOffset = pMax.x/2;
+      float yOffset = pMax.y/2;
+
+      for( int i = 0; i < vectors.size(); i++ ){
+        PVector p = vectors.get(i);
+        p.x -= xOffset;
+        p.y -= yOffset;
+      }
+
+      return vectors;
     }
 
 /**
@@ -485,6 +636,22 @@ public ArrayList<PVector> lineAroundSphere(PVector p1, PVector p2, float radius)
 
 }
 
+/**
+Multiply a PVector using X and Y
+
+@param vector the PVector
+@param scalerX a float defining the scale of X
+@param scalerY a float defining the scale of Y
+@return a PVector
+*/
+
+public PVector multXY(PVector vector,float scalerX,float scalerY){
+      PVector multX = PVector.mult(vector,scalerX);
+      PVector multY = PVector.mult(vector,scalerY);
+      PVector multipliedVector = new PVector(multX.x,multY.y);
+      return multipliedVector;
+}
+
 
 
 /**
@@ -536,4 +703,122 @@ Creates an ArrayList color spectrum
     }
     return colors;
   }
+
+  /**
+Creates an ArrayList of 12 unique colors defined by the iwanthue algorithm
+
+@return an Integer ArrayList of colors
+*/
+
+  public ArrayList iWantHue(){
+   
+    ArrayList colors = new ArrayList();
+
+    colors.add(parent.color(126,131,207));
+    colors.add(parent.color(197,73,107));
+    colors.add(parent.color(112,207,72));
+    colors.add(parent.color(126,184,193));
+    colors.add(parent.color(194,91,49));
+    colors.add(parent.color(93,64,109));
+    colors.add(parent.color(137,211,153));
+    colors.add(parent.color(200,160,157));
+    colors.add(parent.color(78,55,48));
+    colors.add(parent.color(205,190,77));
+    colors.add(parent.color(90,111,59));
+    colors.add(parent.color(195,88,196));
+
+    return colors;
+  }
+
+/**
+ Takes a black and white image and returns an ArrayList of vectors for any non-white pixels 
+ @param file a string defining the location of the image
+ @return an ArrayList of PVectors
+ */
+public ArrayList<PVector> maskToVectors(String file){
+
+  PImage img = parent.loadImage(file);
+  ArrayList<PVector> vectors = new ArrayList<PVector>();
+  for (int i=0; i < img.width; i++) {
+      for (int j=0; j < img.height; j++) {
+        int c = img.get(i,j);
+        if (parent.red(c) != 255 && parent.green(c) != 255 && parent.blue(c) != 255) {
+          vectors.add(new PVector(i,j));
+        }
+      }
+  }
+
+  return vectors;
 }
+
+/**
+ Takes a black and white image and returns an ArrayList of vectors for any non-white pixels 
+ @param img a PImage 
+ @return an ArrayList of PVectors
+ */
+
+public ArrayList<PVector> maskToVectors(PImage img){
+
+  ArrayList<PVector> vectors = new ArrayList<PVector>();
+  for (int i=0; i < img.width; i++) {
+      for (int j=0; j < img.height; j++) {
+        int c = img.get(i,j);
+        if (parent.red(c) != 255 && parent.green(c) != 255 && parent.blue(c) != 255) {
+          vectors.add(new PVector(i,j));
+        }
+      }
+  }
+
+  return vectors;
+}
+
+/**
+ Shuffles an ArrayList using a random seed   
+ @param list an ArrayList that you want to shuffle
+ @return a shuffled ArrayList
+ */
+public ArrayList shuffle(ArrayList list) {
+
+  long seed = System.nanoTime();
+  Collections.shuffle(list, new Random(seed));
+  return list;
+
+}
+
+/**
+ Simple sorting of an ArrayList  
+ @param list an ArrayList that you want to sort
+ @return a sorted ArrayList
+ */
+public ArrayList sort(ArrayList list) {
+
+  Collections.sort(list);
+  return list;
+
+}
+
+/**
+ Reverse an ArrayList  
+ @param list an ArrayList that you want to reverse
+ @return a reversed order ArrayList
+ */
+public ArrayList reverse(ArrayList list) {
+
+  Collections.reverse(list);
+  return list;
+
+}
+
+
+
+
+
+}
+
+
+
+
+
+
+
+

@@ -22,26 +22,27 @@ Draws a center guide
 
 
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 
 
 public void setup(){
-  size(600,600);
-  smooth();
-  ds = new DawesomeToolkit(this);
+  
+  
+  dawesome = new DawesomeToolkit(this);
 }
 
 public void draw(){
   
-  background(50);
+  background(20);
   noStroke();
-  fill(255);
+  fill(dawesome.RICECAKE);
   ellipse(width/2.0f,height/2.0f,200,200);
-  ds.drawCenterGuide(color(255,0,255));
+  dawesome.drawCenterGuide(dawesome.BITTERSWEET);
   
 }
+  public void settings() {  size(600,600);  smooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "CenterGuide" };
+    String[] appletArgs = new String[] { "CenterGuide" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

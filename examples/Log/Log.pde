@@ -1,10 +1,11 @@
 /*
-Example of using the handy debug panel. Press ! to toggle showing and hiding the panel
+Example of using the handy debug panel. 
+Press ! to toggle showing and hiding the panel
 */
 
 import dawesometoolkit.*;
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 Debug debug;
 ArrayList<PVector> sphere;
 
@@ -13,9 +14,11 @@ ArrayList<PVector> sphere;
 void setup(){
   size(600,600,OPENGL);
   smooth();
-  ds = new DawesomeToolkit(this);
+  dawesome = new DawesomeToolkit(this);
   debug = new Debug(this,120,100);
-  sphere = ds.fibonacciSphereLayout(100,150);
+  //debug.setBackgroundColor(#ff00ff);
+  //debug.setForegroundColor(#ffff00);
+  sphere = dawesome.fibonacciSphereLayout(100,150);
   noStroke();
 }
 
@@ -23,7 +26,7 @@ void setup(){
 
 void draw(){
   
-  background(50);
+  background(20);
   debug.update("fps",frameRate);
   debug.update("frameCount",frameCount);
   debug.draw();
@@ -41,15 +44,15 @@ void draw(){
   for (PVector p : sphere) {
      pushMatrix();
        translate(p.x,p.y,p.z);
-       PVector polar = ds.cartesianToPolar(p);
+       PVector polar = dawesome.cartesianToPolar(p);
        rotateY(polar.y);
        rotateZ(polar.z);
        pushMatrix();
-         fill(255,0,255);
+         fill(dawesome.BITTERSWEET);
          rotateY(radians(90));
          text(counter,0,0);
        popMatrix();
-       fill(255);
+       fill(dawesome.BITTERSWEET);
        box(5,5,5);
      popMatrix();
      counter++;

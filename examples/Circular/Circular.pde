@@ -4,7 +4,7 @@ Uses circularLayout to create a circular layout - obvs!
 
 import dawesometoolkit.*;
 
-DawesomeToolkit ds;
+DawesomeToolkit dawesome;
 ArrayList<PVector> layout;
 int dotSize = 10;
 
@@ -12,15 +12,15 @@ int dotSize = 10;
 void setup(){
   size(600,600);
   smooth();
-  ds = new DawesomeToolkit(this);
-  layout = ds.circularLayout(25,100);
+  dawesome = new DawesomeToolkit(this);
+  layout = dawesome.circularLayout(100,200);
 
 }
 
 void draw(){
   
-  background(50);
-  fill(255);
+  background(20);
+  fill(dawesome.BITTERSWEET);
   noStroke();
   translate(width/2,height/2);
   for (PVector p : layout) {
