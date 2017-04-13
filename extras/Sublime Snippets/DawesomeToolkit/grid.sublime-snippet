@@ -1,0 +1,9 @@
+<snippet>
+	<content><![CDATA[
+gridLayout(${1:amount},${2:xStep},${3:yStep},${4:columns});
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>grid</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.pde</scope>
+</snippet>

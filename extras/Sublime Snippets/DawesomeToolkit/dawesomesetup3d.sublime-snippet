@@ -1,0 +1,30 @@
+<snippet>
+	<content><![CDATA[
+import dawesometoolkit.*;
+import peasy.*;
+
+
+DawesomeToolkit dawesome;
+PeasyCam cam;
+
+void setup(){
+	
+	size(${1:width},${2:height},P3D);
+	dawesome = new DawesomeToolkit(this);
+	cam = new PeasyCam(this,500);
+	dawesome.enableLazySave('s', ".png");
+
+}
+
+void draw() {
+	
+
+}
+
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>setup dawesome 3D</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

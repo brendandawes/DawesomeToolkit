@@ -1,0 +1,9 @@
+<snippet>
+	<content><![CDATA[
+getDistanceBetweenLatLonInMiles(${1:lat1},${2:lon1},${3:lat2},${4:lon2});
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>getDistanceMiles</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.pde</scope>
+</snippet>

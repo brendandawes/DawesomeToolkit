@@ -17,11 +17,12 @@ ArrayList<Integer> colors;
 
 
 void setup() {
-	size(500, 500);
+	size(600, 600);
 	dawesome = new DawesomeToolkit(this);
 	dawesome.enableLazySave('s', ".png");
 	colors = dawesome.colorSpectrum(16, 100, 50);
 	vectors = dawesome.maskToVectors("hello.png");
+	vectors = dawesome.centerPVectors(vectors);
 	long seed = System.nanoTime();
 	Collections.shuffle(vectors, new Random(seed));
 	smooth();
@@ -29,6 +30,7 @@ void setup() {
 
 void draw() {
 	background(20);
+	translate(width/2, 200);
 	int count = 0;
 	for (PVector p: vectors){
 		if (count%13==0){

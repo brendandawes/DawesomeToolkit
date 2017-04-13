@@ -1,0 +1,47 @@
+<snippet>
+	<content><![CDATA[
+import processing.pdf.*;
+import dawesometoolkit.*;
+DawesomeToolkit dawesome;
+
+boolean recordPDF = false;
+
+void setup(){
+	
+	size(${1:width},${2:height});
+	dawesome = new DawesomeToolkit(this);
+	dawesome.enableLazySave('s', ".png");
+
+}
+
+void draw() {
+
+ if (recordPDF) {
+    beginRecord(PDF, dawesome.uniqueFileName()+"_output.pdf");
+  }
+
+
+
+ if (recordPDF){
+ 	endRecord();
+ 	recordPDF = false;
+ }
+	
+
+}
+
+void keyPressed(){
+
+	if (key=='e'){
+		recordPDF = !recordPDF;
+	}
+
+}
+
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>setup dawesome 2D</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
