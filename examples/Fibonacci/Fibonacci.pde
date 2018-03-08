@@ -1,3 +1,5 @@
+// The Dawesome Toolkit —A Library for Processing by Brendan Dawes
+// http://cloud.brendandawes.com/dawesometoolkit/
 /*
 Uses fibonacciSphereLayout to create an ArrayList of PVectors nicely
 distributed around a sphere using Fibonacci.

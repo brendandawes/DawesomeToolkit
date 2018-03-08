@@ -1,3 +1,5 @@
+// The Dawesome Toolkit —A Library for Processing by Brendan Dawes
+// http://cloud.brendandawes.com/dawesometoolkit/
 /*
 Just add one line of code and you can quickly save screenshots
 */

@@ -1,3 +1,5 @@
+// The Dawesome Toolkit —A Library for Processing by Brendan Dawes
+// http://cloud.brendandawes.com/dawesometoolkit/
 /*
 Uses getCartesian to map lat lon of cities, read from a csv file, on a globe
 */

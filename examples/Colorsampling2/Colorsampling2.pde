@@ -1,3 +1,5 @@
+// The Dawesome Toolkit —A Library for Processing by Brendan Dawes
+// http://cloud.brendandawes.com/dawesometoolkit/
 /*
 Example of using the ColorSampler class to get an ArrayList with a defined number of colors from a color strip image.
 */

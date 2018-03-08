@@ -1,3 +1,5 @@
+// The Dawesome Toolkit —A Library for Processing by Brendan Dawes
+// http://cloud.brendandawes.com/dawesometoolkit/
 /*
 Creates a color palette of 12 colors using iWantHue dataviz colors
 */

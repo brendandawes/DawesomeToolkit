@@ -1,3 +1,5 @@
+// The Dawesome Toolkit —A Library for Processing by Brendan Dawes
+// http://cloud.brendandawes.com/dawesometoolkit/
 /*
 Example of using the log to file feature of the Debug class. 
 */
@@ -24,6 +26,7 @@ void setup(){
 void draw(){
   
   background(20);
+  // Press ! on the keyboard to reveal the debug panel
   debug.update("fps",frameRate);
   debug.update("frameCount",frameCount);
   debug.draw();

@@ -1,4 +1,6 @@
-// =====================================
+// The Dawesome Toolkit —A Library for Processing by Brendan Dawes
+// http://cloud.brendandawes.com/dawesometoolkit/
+/50/ =====================================
 // Dawesome Toolkit ====================
 // =====================================
 

@@ -1,3 +1,5 @@
+// The Dawesome Toolkit —A Library for Processing by Brendan Dawes
+// http://cloud.brendandawes.com/dawesometoolkit/
 /*
 Uses circularLayout to create a circular layout - obvs!
 */
@@ -13,7 +15,7 @@ void setup(){
   size(600,600);
   smooth();
   dawesome = new DawesomeToolkit(this);
-  layout = dawesome.circularLayout(100,200);
+  layout = dawesome.circularLayout(10,200);
 
 }
 

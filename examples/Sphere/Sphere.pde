@@ -1,3 +1,5 @@
+// The Dawesome Toolkit —A Library for Processing by Brendan Dawes
+// http://cloud.brendandawes.com/dawesometoolkit/
 /*
 Uses gridLayout and then mapPVectorsAroundSphere to map that grid around a sphere
 */
